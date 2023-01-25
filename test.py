@@ -9,7 +9,7 @@ win.resizable(width=False, height=False)
 win.geometry("674x717")
 win.title('Money Converter')
 
-#Rates of each currency
+# Names and Rates of each currency
 EURrates = {"Dollar": [1.087, "USD"], "Dollar Canadien": [1.453, "CAD"], "Dollar Australien": [1.549, "AUD"],
             "Franc Suisse": [1.004, "CHF"], "Rouble Russe": [74.775, "RUB"]}
 USDrates = {"Euro": [0.919, "EUR"], "Dollar Canadien": [1.336, "CAD"], "Dollar Australien": [1.425, "AUD"],
@@ -24,10 +24,11 @@ RUBrates = {"Euro": [0.013, "EUR"], "Dollar": [0.014, "USD"], "Dollar Canadien":
             "Dollar Australien": [0.021, "AUD"], "Franc Suisse": [0.009, "CHF"]}
 new_rates = {}
 
-#dict of currencynames
 currencyname = ["Euro", "Dollar", "Dollar Canadien", "Dollar Australien", "Franc Suisse", "Rouble Russe"]
-# currency choices
+dict_ofdict = {currencyname[0]: EURrates, currencyname[1]: USDrates, currencyname[2]: CADrates,
+               currencyname[3]: AUDrates, currencyname[4]: CHFrates, currencyname[5]: RUBrates}
 
+# currency choices
 Label(win, text="From", font=('Calibri 10')).place(x=10, y=3)
 var1 = StringVar()
 var1.set(currencyname[0])
@@ -46,8 +47,7 @@ val.pack()
 
 values = ["", 1.2, ""]
 historique = []
-selected3 = ""
-selected4 = ""
+
 
 def convert():
     global currencyname, historique, values, selected3, selected4
@@ -62,7 +62,7 @@ def convert():
                 # used to convert
                 result = amount * EURrates[selected2][0]
                 print(EURrates[selected2][0])
-                str_sum = str(result) + EURrates[selected2][1]
+                str_sum = str(result) + " " + EURrates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
                 str_calcul = str(amount) + " * " + str(EURrates[selected2][0]) + " = " + str(result)
@@ -79,7 +79,7 @@ def convert():
             for x in range(len(USDrates)):
                 # used to convert
                 result = amount * USDrates[selected2][0]
-                str_sum = str(result) + USDrates[selected2][1]
+                str_sum = str(result) + " " + USDrates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
                 str_calcul = str(amount) + " * " + str(USDrates[selected2][0]) + " = " + str(result)
@@ -97,7 +97,7 @@ def convert():
             for x in range(len(CADrates)):
                 # used to convert
                 result = amount * CADrates[selected2][0]
-                str_sum = str(result) + CADrates[selected2][1]
+                str_sum = str(result) + " " + CADrates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
                 str_calcul = str(amount) + " * " + str(CADrates[selected2][0]) + " = " + str(result)
@@ -110,12 +110,12 @@ def convert():
             val.delete(0, END)
             val.insert(END, "Error, you cannot convert CAD in CAD")
 
-    elif selected1 ==  "Dollar Australien":
+    elif selected1 == "Dollar Australien":
         if selected1 != selected2:
             for x in range(len(AUDrates)):
                 # used to convert
                 result = amount * AUDrates[selected2][0]
-                str_sum = str(result) + AUDrates[selected2][1]
+                str_sum = str(result) + " " + AUDrates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
                 str_calcul = str(amount) + " * " + str(AUDrates[selected2][0]) + " = " + str(result)
@@ -128,12 +128,12 @@ def convert():
             val.delete(0, END)
             val.insert(END, "Error, you cannot convert AUD in AUD")
 
-    elif selected1 ==  "Franc Suisse":
+    elif selected1 == "Franc Suisse":
         if selected1 != selected2:
             for x in range(len(CHFrates)):
                 # used to convert
                 result = amount * CHFrates[selected2][0]
-                str_sum = str(result) + CHFrates[selected2][1]
+                str_sum = str(result) + " " + CHFrates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
                 str_calcul = str(amount) + " * " + str(CHFrates[selected2][0]) + " = " + str(result)
@@ -151,7 +151,7 @@ def convert():
             for x in range(len(RUBrates)):
                 # used to convert
                 result = amount * RUBrates[selected2][0]
-                str_sum = str(result) + RUBrates[selected2][1]
+                str_sum = str(result) + " " + RUBrates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
                 str_calcul = str(amount) + " * " + str(RUBrates[selected2][0]) + " = " + str(result)
@@ -164,16 +164,16 @@ def convert():
             val.delete(0, END)
             val.insert(END, "Error, you cannot convert RUB in RUB")
 
-    elif selected3 == vale:
-        if selected3 != selected4:
+    elif selected1 == currencyname[-1]:
+        if selected1 != selected2:
             for x in range(len(new_rates)):
                 # used to convert
-                result = amount * new_rates[selected4][0]
-                str_sum = str(result) + new_rates[selected4][1]
+                result = amount * new_rates[selected2][0]
+                str_sum = str(result) + " " + new_rates[selected2][1]
                 label.config(text=str_sum)
                 # used to create historique
-                str_calcul = str(amount) + " * " + str(new_rates[selected4][0]) + " = " + str(result)
-                str_rate = "1 " + selected3 + " = " + str(new_rates[selected4][0]) + " " + new_rates[selected4][1]
+                str_calcul = str(amount) + " * " + str(new_rates[selected2][0]) + " = " + str(result)
+                str_rate = "1 " + selected1 + " = " + str(new_rates[selected2][0]) + " " + new_rates[selected2][1]
                 str_histo = str_rate + ": " + str_calcul
                 historique.append(str_histo)
                 print(historique)
@@ -189,43 +189,29 @@ val2.pack()
 
 
 def add_currency():
-    global box1, box2, new_rates, values, selected3, selected4
-    selected3 = var1.get()
-    selected4 = var2.get()
-
-    new_rate = val2.get()
-    values = new_rate.split()
+    global box1, box2, new_rates, values
+    new = val2.get()
+    values = new.split()
     currencyname.append(values[0])
 
     rate_value = float(values[1])
     new_rates = RUBrates.copy()
-    new_rates["Rouble Russe"] = [1.1, " RUB"]
+    new_rates["Rouble Russe"] = [0.1, " RUB"]
+    # print(dict_ofdict)
 
-    if values[0] == selected3:
-        currencyname.append(values[0])
+
+# enter new currency, the output currency name (Euro, Dollar) and its rate
+    # Yen 1.24 Dollar
+    if len(values) == 3:
         new_rates[values[2]][0] = rate_value
         print(new_rates)
-    elif values[0] == selected4:
-        match selected3:
-            case "Euro":
-                currencyname.append(values[0])
-                EURrates[values[0]] = [rate_value, values[2]]
-                print(EURrates)
-            case "Dollar":
-                currencyname.append(values[0])
-                USDrates[values[0]] = [rate_value, values[2]]
-            case "Dollar Canadien":
-                currencyname.append(values[0])
-                CADrates[values[0]] = [rate_value, values[2]]
-            case "Dollar Australien":
-                currencyname.append(values[0])
-                AUDrates[values[0]] = [rate_value, values[2]]
-            case "Franc Suisse":
-                currencyname.append(values[0])
-                CHFrates[values[0]] = [rate_value, values[2]]
-            case "Rouble Russe":
-                currencyname.append(values[0])
-                RUBrates[values[0]] = [rate_value, values[2]]
+# enter new currency, its rate, the new sigle, and the existing currecency (Euro, Dollar)
+    #Yen 0.25 JPY Euro
+    elif len(values) > 3:
+        addto = {values[0]: [rate_value, values[2]]}
+        print(addto)
+        dict_ofdict[values[3]].update(addto)
+        print(dict_ofdict)
 
     box1.destroy()
     box2.destroy()
